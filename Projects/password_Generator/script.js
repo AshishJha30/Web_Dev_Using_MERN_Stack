@@ -26,18 +26,25 @@ let checkCount = 0;
 handleSlider();
 
 //set strength circle color to grey
+setIndicator("#ccc");
 
 // Set passwordLength
 function handleSlider() {
     inputSlider.value = passwordLength;
     lengthDisplay.innerText = passwordLength;
-    //or kuch 
+    
+    // To mark backgroundColor till the slider thumb 
+    const min = inputSlider.min;
+    const max = inputSlider.max;
+    inputSlider.style.backgroundSize = ( (passwordLength - min)*100/(max - min)) + "% 100%"
 }
+
 
 function setIndicator(color) {
     // indicator.computedStyleMap.backgroundColor = color;
     indicator.style.backgroundColor = color;
     //shadow
+    indicator.style.boxShadow = `0px 0px 12px 1px ${color}`;
 }
 
 function getRandomInteger(min, max) {
@@ -72,7 +79,7 @@ function calcStrength() {
     if (symbolsCheck.checked) hasSym = true;
   
     if (hasUpper && hasLower && (hasNum || hasSym) && passwordLength >= 8) {
-      setIndicator("#0f0");
+      setIndicator("#f00"); // green 0f0 , red f00
     } else if (
       (hasLower || hasUpper) &&
       (hasNum || hasSym) &&
@@ -80,7 +87,7 @@ function calcStrength() {
     ) {
       setIndicator("#ff0");
     } else {
-      setIndicator("#f00");
+      setIndicator("#0f0");
     }
 }
 
